@@ -42,22 +42,6 @@
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23f9a8d4' opacity='.5'/%3E%3C/svg%3E") repeat;
       pointer-events: none;
     }
-    .badge {
-      display: inline-block;
-      background: white;
-      border: 2px dashed #f9a8d4;
-      border-radius: 999px;
-      padding: .35rem 1.1rem;
-      font-size: .8rem; font-weight: 700; letter-spacing: .12em;
-      color: #e879a0; text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      animation: popIn .6s cubic-bezier(.34,1.56,.64,1) both;
-      position: relative; z-index: 1;
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(.5); }
-      to   { opacity: 1; transform: scale(1); }
-    }
     .hero-title {
       font-family: 'Pacifico', cursive;
       font-size: clamp(3rem, 10vw, 7rem);
@@ -92,24 +76,9 @@
     .emoji-row span:nth-child(4) { animation-delay: .6s; }
     .emoji-row span:nth-child(5) { animation-delay: .8s; }
     @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
-    .scroll-hint {
-      position: absolute; bottom: 2rem;
-      font-size: .8rem; font-weight: 700; color: #e879a0; letter-spacing: .1em;
-      display: flex; flex-direction: column; align-items: center; gap: .4rem;
-      animation: pulse 2s ease-in-out infinite; z-index: 1;
-    }
-    .scroll-hint svg { width: 20px; height: 20px; stroke: #e879a0; fill: none; }
-    @keyframes pulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
     /* SECTION COMMON */
     section { padding: 5rem 1.5rem; position: relative; }
-    .section-label {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem; font-weight: 600;
-      color: var(--faded); letter-spacing: .12em;
-      text-transform: uppercase;
-      display: block; margin-bottom: .6rem;
-    }
     .section-heading {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(1.8rem, 4vw, 3rem);
@@ -143,7 +112,6 @@
       box-shadow: 3px 4px 0 #e8c8f0, 6px 8px 0 #e8c8f0;
       position: relative;
     }
-    .message-body .placeholder { color: #b0a090; font-style: italic; }
     .message-body .sig {
       display: block; margin-top: 1.5rem;
       font-weight: 700; font-size: 1.1rem;
@@ -196,6 +164,55 @@
       z-index: 2;
     }
 
+    /* VIDEOS */
+    .videos-section {
+      background: var(--aged);
+      border-top: 1px solid #e8c8f0;
+      border-bottom: 1px solid #e8c8f0;
+    }
+    .video-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem 2rem;
+      max-width: 1000px; margin: 0 auto;
+      padding: 1rem;
+    }
+    .video-pin {
+      position: relative;
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+    }
+    .video-pin:hover {
+      transform: rotate(0deg) scale(1.03) translateY(-4px) !important;
+      z-index: 10;
+    }
+    .video-pin .video-tape {
+      position: absolute; top: -11px;
+      left: 50%; transform: translateX(-50%);
+      width: 55px; height: 22px;
+      background: var(--tape);
+      border-top: 1px solid rgba(180,155,40,.3);
+      border-bottom: 1px solid rgba(180,155,40,.3);
+      z-index: 2;
+    }
+    .video-frame {
+      background: white;
+      padding: 8px 8px 36px;
+      box-shadow: 2px 3px 12px rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.1);
+    }
+    .video-frame video {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
+      background: #f3e0fb;
+    }
+    .video-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem; font-weight: 600;
+      text-align: center;
+      padding: 6px 4px 0;
+      color: #7c5a80;
+      min-height: 28px;
+    }
+
     /* FOOTER */
     footer {
       background: linear-gradient(135deg, #fce7f3, #ede9fe);
@@ -204,11 +221,6 @@
       padding: 4rem 2rem;
       position: relative;
       overflow: hidden;
-    }
-    footer::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,.02) 20px, rgba(255,255,255,.02) 21px);
     }
     .footer-big {
       font-family: 'DM Serif Display', serif;
@@ -273,10 +285,10 @@
   <div class="message-inner">
     <div class="message-tape-top"></div>
     <div class="message-body">
-      <p class="placeholder">[ I love you and miss you so much. I wish we could go back to undergrad, 
+      <p>I love you and miss you so much. I wish we could go back to undergrad, 
         where we would do movie nights and spend ramadan together. I miss my bestie so much. 
         I really hope I see you soon. You are my sister and my best best friend.
-         You mean so much to me, you have been there for me through so much I am so thankful to have met you and to have you in my life.]</p>
+        You mean so much to me, you have been there for me through so much I am so thankful to have met you and to have you in my life.</p>
       <span class="sig">— love you lotss 🌷</span>
     </div>
   </div>
@@ -288,6 +300,14 @@
     <h2 class="section-heading">Us</h2>
   </div>
   <div class="photo-wall" id="gallery"></div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos-section">
+  <div style="max-width:1000px;margin:0 auto 0;padding:0 1rem;">
+    <h2 class="section-heading">Us, <em>in motion</em> 🎥</h2>
+  </div>
+  <div class="video-wall" id="video-wall"></div>
 </section>
 
 <!-- FOOTER -->
@@ -304,16 +324,20 @@
   </div>
 </div>
 
+<!-- Hidden YouTube player -->
+<div id="yt-player" style="position:fixed;width:0;height:0;overflow:hidden;pointer-events:none;"></div>
+
 <script>
+  /* ── PHOTOS ── */
   const photos = [
     { src: 'IMG_5973.jpeg', caption: 'I miss our Cava bowls' },
-    { src:  'IMG_7854.jpeg', caption: 'Our homemade dinners' },
-    { src:  'IMG_8391.JPG', caption: 'Graduation' },
-    { src:  'IMG_7068.jpeg"', caption: 'Our shenanigans' },
+    { src: 'IMG_7854.jpeg', caption: 'Our homemade dinners' },
+    { src: 'IMG_8391.JPG',  caption: 'Graduation' },
+    { src: 'IMG_7068.jpeg', caption: 'Our shenanigans' },
     { src: 'IMG_6245.jpeg', caption: 'Our late night drives with Akon' },
     { src: 'IMG_6093.jpeg', caption: 'Next concert Sajda?' },
     { src: 'IMG_6175.jpeg', caption: 'She is cool' },
-    { src: 'IMG_6584.JPG', caption: 'Cozy times' },
+    { src: 'IMG_6584.JPG',  caption: 'Cozy times' },
   ];
 
   const tilts = [-3, 2, -1.5, 3.5, -2.5, 1, -3.5, 2.5];
@@ -326,14 +350,42 @@
     card.innerHTML = `
       <div class="card-tape"></div>
       <div class="photo-frame">
-        <img src="${p.src}" alt="Photo ${i+1}" loading="lazy"
-          style="${p.src ? '' : 'min-height:180px;background:#fce4f3;'}"/>
+        <img src="${p.src}" alt="Photo ${i+1}" loading="lazy"/>
         <div class="photo-caption">${p.caption}</div>
       </div>`;
-    card.querySelector('img').addEventListener('click', () => { if (p.src) openLightbox(p.src); });
+    card.querySelector('img').addEventListener('click', () => openLightbox(p.src));
     grid.appendChild(card);
   });
 
+  /* ── VIDEOS ──
+     Add your video filenames and captions below.
+     Upload the video files to your GitHub repo just like the photos.
+     Supported formats: .mp4, .mov (converted to mp4 recommended), .webm
+  */
+  const videos = [
+    { src: /* VIDEO 1: e.g. 'myvideo.mp4' */ '', caption: 'add a caption ✏️' },
+    { src: /* VIDEO 2: e.g. 'myvideo2.mp4' */ '', caption: 'add a caption ✏️' },
+    { src: /* VIDEO 3: e.g. 'myvideo3.mp4' */ '', caption: 'add a caption ✏️' },
+  ];
+
+  const videoTilts = [2, -2.5, 1.5];
+  const videoWall = document.getElementById('video-wall');
+
+  videos.forEach((v, i) => {
+    if (!v.src) return; // skip empty slots
+    const pin = document.createElement('div');
+    pin.className = 'video-pin';
+    pin.style.setProperty('--tilt', videoTilts[i % videoTilts.length] + 'deg');
+    pin.innerHTML = `
+      <div class="video-tape"></div>
+      <div class="video-frame">
+        <video src="${v.src}" controls playsinline preload="metadata"></video>
+        <div class="video-caption">${v.caption}</div>
+      </div>`;
+    videoWall.appendChild(pin);
+  });
+
+  /* ── LIGHTBOX ── */
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('open');
@@ -344,6 +396,41 @@
   document.getElementById('lightbox').addEventListener('click', e => {
     if (e.target === e.currentTarget) closeLightbox();
   });
+
+  /* ── BACKGROUND MUSIC (YouTube) ──
+     Starts on first tap/click/scroll so browsers allow it.
+  */
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+
+  var player, playerReady = false, playRequested = false;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-player', {
+      videoId: 'd8kEDbYVAWk',
+      playerVars: { autoplay: 0, loop: 1, playlist: 'd8kEDbYVAWk', controls: 0, mute: 0 },
+      events: {
+        onReady: function(e) {
+          playerReady = true;
+          e.target.setVolume(35);
+          if (playRequested) e.target.playVideo();
+        }
+      }
+    });
+  }
+
+  function startMusic() {
+    playRequested = true;
+    if (playerReady) player.playVideo();
+    ['click','scroll','keydown','touchstart'].forEach(function(evt) {
+      document.removeEventListener(evt, startMusic);
+    });
+  }
+  ['click','scroll','keydown','touchstart'].forEach(function(evt) {
+    document.addEventListener(evt, startMusic, { once: true });
+  });
 </script>
 </body>
 </html>
+
